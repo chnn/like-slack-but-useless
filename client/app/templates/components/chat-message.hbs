@@ -1,1 +1,7 @@
-<span class="message {{message.type}}">{{message.body}}</span>
+<div class="message">
+  {{#if message.sender}}
+    <div class="sender">{{message.sender}}</div>
+  {{/if}}
+
+  <div class="body">{{message.body}}</div>
+</div>
