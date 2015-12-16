@@ -7,7 +7,9 @@ some sort of “networked application” using Go.
 
 This project implements a chat server with a simple client-server architecture.
 Participants can visit the client in a web browser and broadcast messages to
-anyone else currently connected.
+anyone else currently connected. The client includes a “fun mode”, in which all
+messages are replaced with a relevant GIFs using the [Giphy
+API](https://github.com/giphy/GiphyAPI).
 
 The server is implemented in Go. It accepts WebSocket connections at the `/ws`
 HTTP endpoint, which are registered with an id in a simple map. Upon
@@ -22,6 +24,15 @@ be more Promise friendly. The `giphy-image` component also makes use of
 Promises. So there's three approaches to concurrency in this project—Promises
 (monadic in nature), the annoying callback API that they wrap, and Go's CSP
 style goroutines!
+
+This project does _not_ do many things. An improved implementation might:
+
+- Persist the chat log, and restore it upon first load
+- Ensure that state is consistent across clients
+- Allow users to choose their own username
+- Support multiple chat rooms
+- Implement some form of authentication
+- Use a more sophisticated message format (e.g with images, formatting, etc.)
 
 ### Running this project locally
 
