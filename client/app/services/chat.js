@@ -6,17 +6,16 @@ export default Ember.Service.extend({
   messages: null,
 
   sendMessage(msg) {
-    this.get('_ws').send({ msg });
+    this.get('_ws').send(msg);
   },
 
   _ws: null,
 
   init() {
-    const _ws = new PromisedWebSocket('/ws', m => this.get('messages').pushObject(m));
+    const onMessage = m => this.get('messages').pushObject(m);
+    const _ws = new PromisedWebSocket('/ws', onMessage);
     const messages =  [
-      {type: 'info', body: `Connected at ${(new Date()).toLocaleString()}`},
-      {type: 'other', body: 'i am a lemon'},
-      {type: 'self', body: 'you are a lemon'}
+      { type: 'info', body: `Connected at ${(new Date()).toLocaleString()}` }
     ];
 
     _ws.initWebSocket();

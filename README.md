@@ -12,7 +12,7 @@ bower install
 ember build
 ```
 
-Then run the go server:
+Then from the root of the project directory, run the go server:
 
 ```
 go get ./...
