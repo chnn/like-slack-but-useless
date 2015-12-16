@@ -6,7 +6,6 @@ export default Ember.Service.extend({
   messages: null,
 
   sendMessage(msg) {
-    // TODO: Identify sender
     this.get('_ws').send({ msg });
   },
 
@@ -14,7 +13,14 @@ export default Ember.Service.extend({
 
   init() {
     const _ws = new PromisedWebSocket('/ws', m => this.get('messages').pushObject(m));
+    const messages =  [
+      {type: 'info', body: `Connected at ${(new Date()).toLocaleString()}`},
+      {type: 'other', body: 'i am a lemon'},
+      {type: 'self', body: 'you are a lemon'}
+    ];
 
-    this.setProperties({ messages: [], _ws });
+    _ws.initWebSocket();
+
+    this.setProperties({ messages, _ws });
   }
 });

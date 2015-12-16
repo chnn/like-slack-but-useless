@@ -1,1 +1,3 @@
-{{yield}}
+{{one-way-input value=unsentMessage update=(action (mut unsentMessage)) onenter=(action "sendIfValid")}}
+
+<button class="button-primary" disabled={{messageInvalid}} {{action (action "sendIfValid")}}>Send</button>

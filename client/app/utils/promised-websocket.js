@@ -27,25 +27,7 @@ export default class PromisedWebSocket {
     return this._getWebSocket().then(socket => socket.send(payload));
   }
 
-  _getWebSocket() {
-    let readyState;
-
-    if (this._ws) {
-      readyState = this._ws.readyState;
-    }
-
-    if (readyState === WebSocket.OPEN) {
-      return Ember.RSVP.Promise.resolve(this._ws);
-    } else if (readyState === WebSocket.CONNECTING) {
-      return this._connectingPromise;
-    } else {
-      this._initWebSocket();  // CLOSING, CLOSED, or null
-
-      return this._connectingPromise;
-    }
-  }
-
-  _initWebSocket() {
+  initWebSocket() {
     this._connectingPromise = new Ember.RSVP.Promise((resolve, reject) => {
       const connectingTimeout = setTimeout(() => {
         reject('Web socket failed by timeout.');
@@ -64,5 +46,25 @@ export default class PromisedWebSocket {
         reject(error);
       };
     });
+
+    return this._connectingPromise.then(() => this);
+  }
+
+  _getWebSocket() {
+    let readyState;
+
+    if (this._ws) {
+      readyState = this._ws.readyState;
+    }
+
+    if (readyState === WebSocket.OPEN) {
+      return Ember.RSVP.Promise.resolve(this._ws);
+    } else if (readyState === WebSocket.CONNECTING) {
+      return this._connectingPromise;
+    } else {
+      this.initWebSocket();  // CLOSING, CLOSED, or null
+
+      return this._connectingPromise;
+    }
   }
 }
