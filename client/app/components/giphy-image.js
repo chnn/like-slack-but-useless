@@ -23,7 +23,7 @@ export default Ember.Component.extend({
   },
 
   getGiphyImage(searchTerm) {
-    const urlSearchTerm = searchTerm.trim().replace(' ', '+');
+    const urlSearchTerm = encodeURIComponent(searchTerm);
     const resultsCount = 20;
     const randomIndex = Math.floor(Math.random() * resultsCount);
 
