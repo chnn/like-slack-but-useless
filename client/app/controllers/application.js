@@ -6,6 +6,10 @@ export default Ember.Controller.extend({
   actions: {
     sendMessage(msg) {
       return this.get('chat').sendMessage(msg);
+    },
+
+    toggleGiphyMode() {
+      this.toggleProperty('giphyMode');
     }
   }
 });

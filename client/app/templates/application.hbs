@@ -1,9 +1,11 @@
 <div class="chat">
   <div class="log">
     {{#each chat.messages as |message|}}
-      {{chat-message message=message}}
+      {{chat-message message=message giphyMode=giphyMode}}
     {{/each}}
   </div>
 
-  {{message-composer sendMessage=(action 'sendMessage')}}
+  {{message-composer giphyMode=giphyMode
+                     sendMessage=(action 'sendMessage')
+                     toggleGiphyMode=(action 'toggleGiphyMode')}}
 </div>

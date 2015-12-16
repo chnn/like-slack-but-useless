@@ -27,6 +27,7 @@ body > .ember-view {
     flex-direction: column;
     justify-content: flex-end;
     padding-bottom: 10px;
+    overflow: scroll;
 }
 
 .message-composer {
@@ -38,7 +39,11 @@ body > .ember-view {
 
 .message-composer input {
     flex-grow: 1;
+}
+
+.message-composer .button-primary {
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .message-composer button[disabled] {

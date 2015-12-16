@@ -1,3 +1,5 @@
 {{one-way-input value=unsentMessage update=(action (mut unsentMessage)) onenter=(action "sendIfValid")}}
 
 <button class="button-primary" disabled={{messageInvalid}} {{action (action "sendIfValid")}}>Send</button>
+
+<button {{action (action toggleGiphyMode)}}>{{unless giphyMode "Enable fun mode!" "Oh god make it stop"}}</button>

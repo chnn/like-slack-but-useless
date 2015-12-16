@@ -3,5 +3,9 @@
     <div class="sender">{{message.sender}}</div>
   {{/if}}
 
-  <div class="body">{{message.body}}</div>
+  {{#if showGif}}
+    {{giphy-image search=message.body}}
+  {{else}}
+    <div class="body">{{message.body}}</div>
+  {{/if}}
 </div>
