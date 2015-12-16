@@ -11,8 +11,8 @@ import Ember from 'ember';
   callback to the constructor.
 */
 export default class PromisedWebSocket {
-  constructor({url, onMessage}={}) {
-    this._url = url || `ws:${location.host}`;
+  constructor(url, onMessage) {
+    this._url = `ws:${location.host}${url}`;
 
     const identity = x => x;
 
