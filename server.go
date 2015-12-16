@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"strconv"
 )
 
 type message struct {
@@ -41,13 +42,13 @@ func receiveMessages(id string, connection *websocket.Conn) {
 	}()
 
 	for {
-		_, body, err := connection.ReadMessage()
+		_, data, err := connection.ReadMessage()
 
 		if err != nil {
 			return
 		}
 
-		fmt.Printf("Received and broadcasting message %s from %v\n", body, id)
+		body, _ := strconv.Unquote(string(data))
 
 		for _, otherConnection := range connections {
 			messageType := "other"
@@ -58,12 +59,14 @@ func receiveMessages(id string, connection *websocket.Conn) {
 
 			m := message{
 				MessageType: messageType,
-				Body:        string(body),
+				Body:        body,
 				Sender:      id,
 			}
 
 			otherConnection.WriteJSON(m)
 		}
+
+		fmt.Printf("Received and broadcasted message \"%s\" from %v\n", body, id)
 	}
 }
 
