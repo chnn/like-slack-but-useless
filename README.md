@@ -1,5 +1,22 @@
-The following was for a course at Reed College. The assignment was to build
-some sort of “networked application” using Go.
+The following was built for a course at Reed College. The assignment was to
+build some sort of “networked application” using Go's [CSP][0]-style concurrent
+programming primitives; I built a simple chat server with a corresponding
+JavaScript client application. The client app uses callback functions and
+futures to showcase two additional possibilities for organizing concurrent
+programs.
+
+The client application looks like this:
+
+![A screeenshot of the chat application](normal-mode.png?raw=true)
+
+It also includes a “fun mode” which replaces text with relevant GIFs, sourced
+from an external API:
+
+![The chat application’s “fun mode”](fun-mode.png?raw=true)
+
+Below is the original note I wrote for my professor.
+
+[0]: http://spinroot.com/courses/summer/Papers/hoare_1978.pdf
 
 <hr>
 
@@ -19,7 +36,7 @@ registered in the map. This is similar to the simple “fan out” architecture
 
 The client is an Ember app which initiates the WebSocket connection when
 loaded. There's not too much to look at here. You might be interested in the
-`PromisedWebSocket` utility I wrote, which wraps the browser's WebSocket API to
+`PromisedWebSocket` utility I wrote, which wraps the browser’s WebSocket API to
 be more Promise friendly. The `giphy-image` component also makes use of
 Promises. So there's three approaches to concurrency in this project—Promises
 (monadic in nature), the annoying callback API that they wrap, and Go's CSP
